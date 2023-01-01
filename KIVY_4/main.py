@@ -13,6 +13,7 @@ from kivymd.uix.scrollview import MDScrollView
 from kivy.clock import Clock
 from kivymd.uix.list import ThreeLineIconListItem, IconLeftWidget #import para crear listas (cambia dependiendo de los campos que queremos que tenga la lista), le pasamos diferentes imports de la misma biblioteca
 import json #importamos la libreria de python que nos permite trabajar con json
+from pathlib import Path #cargar ruta del script
 
 
 
@@ -44,11 +45,13 @@ class MyApp (MDApp):
         return Builder.load_file("main2.kv")
 
     def on_start(self): #creamos la clase on_start
+        #sirve para que cargue bien el json desde cualquier directorio
+        script_location = Path(__file__).absolute().parent 
         # Cargamos los datos desde el archivo data.json
-        with open("data.json","rt") as json_file:
+        with open(script_location / "data.json","rt") as json_file:
             data = json.load(json_file)
 
-        with open("tareas.json","rt") as json_file:
+        with open(script_location / "tareas.json","rt") as json_file:
             data2 = json.load(json_file)
 
         #print(data)
